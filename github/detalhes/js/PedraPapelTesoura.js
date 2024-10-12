@@ -57,8 +57,8 @@ function init() {
   state.fieldCards.player.style.display = "none";
   state.fieldCards.computer.style.display = "none";
 
-  drawCards(5, state.playerSides.player1);
-  drawCards(5, state.playerSides.player2);
+  drawCards(3, state.playerSides.player1);
+  drawCards(3, state.playerSides.player2);
 }
 
 async function drawCards(cardsNumber, fieldSide) {
