@@ -1,4 +1,8 @@
+
 const state = {
+  audio: {
+    backgroundAudio: false,
+  },
   score: {
     playerScore: 0,
     computerScore: 0,
@@ -24,21 +28,21 @@ const state = {
   },
 };
 
-const pathImages = "./detalhes/cartas/";
+const pathImages = "./src/assets/icons/";
 
 const cardData = [
   {
     id: 0,
     name: "Papel",
-    type: "Paper",
-    img: `${pathImages}carta-papel-azul`,
+    type: "Papel",
+    img: `${pathImages}carta-papel-azul.png`,
     winOf: [1],
     loseOf: [2],
   },
   {
     id: 1,
     name: "Pedra",
-    type: "Rock",
+    type: "Pedra",
     img: `${pathImages}carta-pedra-azul.png`,
     winOf: [2],
     loseOf: [0],
@@ -46,7 +50,7 @@ const cardData = [
   {
     id: 2,
     name: "Tesoura",
-    type: "Scissors",
+    type: "Tesoura",
     img: `${pathImages}carta-tesoura-azul.png`,
     winOf: [0],
     loseOf: [1],
@@ -74,7 +78,7 @@ async function createCardImage(card, fieldSide) {
   const cardImage = document.createElement("img");
 
   cardImage.setAttribute("height", "100px");
-  cardImage.setAttribute("src", "./detalhes/cartas/ufs-carta-back.png");
+  cardImage.setAttribute("src", "./src/assets/icons/ufs-carta-back.png");
   cardImage.setAttribute("data-id", card.id);
   cardImage.classList.add("card");
 
@@ -132,15 +136,15 @@ async function drawButton(result) {
 }
 
 async function checkDuelResult(playerCard, computerCard) {
-  let duelResult = "draw";
+  let duelResult = "EMPATE";
 
   if (playerCard.winOf.includes(computerCard.id)) {
-    duelResult = "win";
+    duelResult = "GANHOU";
     state.score.playerScore++;
   }
 
   if (playerCard.loseOf.includes(computerCard.id)) {
-    duelResult = "lose";
+    duelResult = "PERDEU";
     state.score.computerScore++;
   }
 
@@ -169,6 +173,11 @@ async function drawSelectedCard(cardId) {
 async function getRandomCard() {
   const randomIndex = Math.floor(Math.random() * cardData.length);
   return cardData[randomIndex];
+}
+
+async function playAudio(status) {
+  const audio = new Audio(`./src/assets/audios/${status}.wav`);
+  audio.play();
 }
 
 init();
