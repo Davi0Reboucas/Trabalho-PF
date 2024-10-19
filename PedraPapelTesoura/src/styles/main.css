@@ -1,5 +1,5 @@
 body {
-  cursor: url("../assets/cursor/yugicursor.png"), default;
+  cursor: url("../assets/cursor/cursor.png\ \(1\).png"), default;
 }
 
 #audio-player {
@@ -26,7 +26,7 @@ button:hover,
 img:hover,
 a,
 a:hover {
-  cursor: url("../assets/cursor/yamiyugicursorGLOW.png"), auto;
+  cursor: url("../assets/cursor/cursor2.png\ \(1\).png"), auto;
 }
 
 .bg-video {
