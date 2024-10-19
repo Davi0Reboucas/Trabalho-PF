@@ -36,24 +36,41 @@ const cardData = [
     name: "Papel",
     type: "Papel",
     img: `${pathImages}carta-papel-azul.png`,
-    winOf: [1],
-    loseOf: [2],
+    winOf: [1, 3],
+    loseOf: [2, 4],
   },
   {
     id: 1,
     name: "Pedra",
     type: "Pedra",
     img: `${pathImages}carta-pedra-azul.png`,
-    winOf: [2],
-    loseOf: [0],
+    winOf: [2, 4],
+    loseOf: [0, 3],
   },
   {
     id: 2,
     name: "Tesoura",
     type: "Tesoura",
     img: `${pathImages}carta-tesoura-azul.png`,
-    winOf: [0],
-    loseOf: [1],
+    winOf: [0, 4],
+    loseOf: [1, 3],
+  },
+  {
+    id: 3,
+    name: "Spock",
+    type: "Spock",
+    img: `${pathImages}carta-spock-azul.png`,
+    winOf: [2, 1],
+    loseOf: [4, 0],
+  },
+  {
+    id: 4,
+    name: "Lagarto",
+    type: "Lagarto",
+    img: `${pathImages}carta-lagarto-azul.png`,
+    winOf: [3, 0],
+    loseOf: [1, 2],
+
   },
 ];
 
@@ -122,6 +139,7 @@ async function resetDuel() {
 
   state.fieldCards.player.style.display = "none";
   state.fieldCards.computer.style.display = "none";
+
 
   init();
 }
