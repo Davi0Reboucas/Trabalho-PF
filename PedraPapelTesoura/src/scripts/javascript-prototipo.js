@@ -152,15 +152,18 @@ async function checkDuelResult(playerCard, computerCard) {
   return duelResult;
 }
 
-async function removeAllCardsImages() {
-  let { player1Box, player2Box } = state.playerSides;
 
-  let imgElements = player1Box.querySelectorAll("img");
-  imgElements.forEach((img) => img.remove());
+const removeAllCardsImages = () => {
+  const player1Box = state.playerSides.player1Box
+  const player2Box = state.playerSides.player2Box
 
-  imgElements = player2Box.querySelectorAll("img");
-  imgElements.forEach((img) => img.remove());
+  const imgElementsPlayer1 = [...player1Box.querySelectorAll("img")] 
+  const imgElementsPlayer2 = [...player2Box.querySelectorAll("img")]
+
+  imgElementsPlayer1.map((img) => img.remove())
+  imgElementsPlayer2.map((img) => img.remove())
 }
+
 
 async function drawSelectedCard(cardId) {
   const selectedCard = cardData[cardId];
