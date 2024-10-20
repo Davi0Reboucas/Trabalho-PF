@@ -188,7 +188,7 @@ async function drawSelectedCard(cardId) {
 
   state.cardSprites.avatar.src = selectedCard.img;
   state.cardSprites.name.innerText = selectedCard.name;
-  state.cardSprites.type.innerText = `Attribute: ${selectedCard.type}`;
+  state.cardSprites.type.innerText = `Atributo: ${selectedCard.type}`;
 }
 
 async function getRandomCard() {
@@ -202,3 +202,17 @@ async function playAudio(status) {
 }
 
 init();
+
+const gerarCartas = cardData => ['Papel', 'Pedra', 'Tesoura', 'Lagarto', 'Spock']; {
+const embaralhar = (cartas) => {
+  return cartas
+    .map(carta => ({ carta, aleatorio: Math.random() })) 
+    .sort((a, b) => a.aleatorio - b.aleatorio) 
+    .map(({ carta }) => carta); 
+};
+const init = () => {
+  const cartas = gerarCartas();
+  const cartasEmbaralhadas = embaralhar(cartas);
+};
+
+init(); }
