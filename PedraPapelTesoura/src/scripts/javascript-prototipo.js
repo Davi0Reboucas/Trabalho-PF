@@ -25,9 +25,9 @@ const state = {
   actions: {
       button: document.getElementById("next-duel"),
   },
-  };
+  }
   
-  const pathImages = "./src/assets/icons/";
+  const pathImages = "./src/assets/icons/"
   
   const cardData = [
   {
@@ -71,14 +71,15 @@ const state = {
       loseOf: [1, 2],
   
   },
-  ];
+  ]
   
   const init = () => {
-  state.fieldCards.player.style.display = "none";
-  state.fieldCards.computer.style.display = "none";
+  removeAllCardsImages()
+  state.fieldCards.player.style.display = "none"
+  state.fieldCards.computer.style.display = "none"
   
-  drawCards(3, state.playerSides.player1);
-  drawCards(3, state.playerSides.player2);
+  drawCards(3, state.playerSides.player1)
+  drawCards(3, state.playerSides.player2)
   }
   
   const drawCards = (cardsNumber, fieldSide, acc = 0) => {
@@ -86,88 +87,88 @@ const state = {
       return []
   }
   const randomCard =  getRandomCard();
-  const cardImage =  createCardImage(randomCard, fieldSide);
-  document.getElementById(fieldSide).appendChild(cardImage);
+  const cardImage =  createCardImage(randomCard, fieldSide)
+  document.getElementById(fieldSide).appendChild(cardImage)
   return  drawCards(cardsNumber, fieldSide, acc + 1 )
   }
   
   const createCardImage = (card, fieldSide) => {
   const cardImage = document.createElement("img");
   
-  cardImage.setAttribute("height", "100px");
-  cardImage.setAttribute("src", "./src/assets/icons/ufs-carta-back.png");
-  cardImage.setAttribute("data-id", card.id);
+  cardImage.setAttribute("height", "100px")
+  cardImage.setAttribute("src", "./src/assets/icons/ufs-carta-back.png")
+  cardImage.setAttribute("data-id", card.id)
   cardImage.classList.add("card");
   
   if (fieldSide === state.playerSides.player1) {
       cardImage.addEventListener("click", () => {
-      setCardsField(cardImage.getAttribute("data-id"));
-      });
+      setCardsField(cardImage.getAttribute("data-id"))
+      })
   
       cardImage.addEventListener("mouseover", () => {
-      drawSelectedCard(card.id);
-      });
+      drawSelectedCard(card.id)
+      })
   }
   
   return cardImage;
   }
   
-  async function setCardsField(cardId) {
-  await removeAllCardsImages();
-  const computerCard = await getRandomCard();
-  const playerCard = cardData[cardId];
+  const setCardsField = async(cardId) => {
+  await removeAllCardsImages()
+  const computerCard = await getRandomCard()
+  const playerCard = cardData[cardId]
   
-  state.fieldCards.player.style.display = "block";
-  state.fieldCards.computer.style.display = "block";
+  state.fieldCards.player.style.display = "block"
+  state.fieldCards.computer.style.display = "block"
   
-  state.fieldCards.player.src = playerCard.img;
-  state.fieldCards.computer.src = computerCard.img;
+  state.fieldCards.player.src = playerCard.img
+  state.fieldCards.computer.src = computerCard.img
   
-  const duelResult = await checkDuelResult(playerCard, computerCard);
+  const duelResult = await checkDuelResult(playerCard, computerCard)
   
-  await updateScore();
-  await drawButton(duelResult);
+  await updateScore()
+  await drawButton(duelResult)
   }
   
   const resetDuel = () => {
-  state.cardSprites.name.innerText = "Selecione";
-  state.cardSprites.type.innerText = "uma carta";
-  state.cardSprites.avatar.src = "";
+  state.cardSprites.name.innerText = "Selecione"
+  state.cardSprites.type.innerText = "uma carta"
+  state.cardSprites.avatar.src = ""
   
-  state.cardSprites.avatar.src = "";
-  state.actions.button.style.display = "none";
+  state.cardSprites.avatar.src = ""
+  state.actions.button.style.display = "none"
   
-  state.fieldCards.player.style.display = "none";
-  state.fieldCards.computer.style.display = "none";
+  state.fieldCards.player.style.display = "none"
+  state.fieldCards.computer.style.display = "none"
   
   
-  init();
+  init()
   }
   
   const updateScore = () => {
-  state.score.scoreBox.innerText = `Vitorias: ${state.score.playerScore} | Derrotas: ${state.score.computerScore}`;
+  state.score.scoreBox.innerText = `Vitorias: ${state.score.playerScore} | Derrotas: ${state.score.computerScore}`
   }
   
   const drawButton = (result) => {
-  state.actions.button.innerText = result.toUpperCase();
-  state.actions.button.style.display = "block";
+  state.actions.button.innerText = result.toUpperCase()
+  state.actions.button.style.display = "block"
   }
   
   const  checkDuelResult = (playerCard, computerCard) => {
-  let duelResult = "EMPATE";
+  let duelResult = "EMPATE"
   
   if (playerCard.winOf.includes(computerCard.id)) {
-      duelResult = "GANHOU";
-      state.score.playerScore++;
+      duelResult = "GANHOU"
+      state.score.playerScore++
   }
   
   if (playerCard.loseOf.includes(computerCard.id)) {
-      duelResult = "PERDEU";
-      state.score.computerScore++;
+      duelResult = "PERDEU"
+      state.score.computerScore++
   }
   
-  playAudio(duelResult);
-  return duelResult;
+  playAudio(duelResult)
+  return duelResult
   }
   
   
@@ -184,35 +185,25 @@ const state = {
   
   
   const drawSelectedCard = (cardId) => {
-  const selectedCard = cardData[cardId];
+  const selectedCard = cardData[cardId]
   
-  state.cardSprites.avatar.src = selectedCard.img;
-  state.cardSprites.name.innerText = selectedCard.name;
-  state.cardSprites.type.innerText = `Atributo: ${selectedCard.type}`;
+  state.cardSprites.avatar.src = selectedCard.img
+  state.cardSprites.name.innerText = selectedCard.name
+  state.cardSprites.type.innerText = `Atributo: ${selectedCard.type}`
   }
   
   const getRandomCard = () => {
-   const randomIndex = Math.floor(Math.random() * cardData.length);
-  return cardData[randomIndex];
+   const randomIndex = Math.floor(Math.random() * cardData.length)
+  return cardData[randomIndex]
   }
   
   const playAudio = (status) => {
-  const audio = new Audio(`./src/assets/audios/${status}.wav`);
-  audio.play();
+  const audio = new Audio(`./src/assets/audios/${status}.wav`)
+  audio.play()
   }
   
-  init();
-  
-  const gerarCartas = cardData => ['Papel', 'Pedra', 'Tesoura', 'Lagarto', 'Spock']; {
-  const embaralhar = (cartas) => {
-  return cartas
-      .map(carta => ({ carta, aleatorio: Math.random() }))
-      .sort((a, b) => a.aleatorio - b.aleatorio)
-      .map(({ carta }) => carta);
-  };
-  const init = () => {
-  const cartas = gerarCartas();
-  const cartasEmbaralhadas = embaralhar(cartas);
-  };
-  
-  init(); }
+  init()
+
+  function botao() {
+    init()
+}
